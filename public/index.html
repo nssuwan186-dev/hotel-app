@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Ledger App</title>
+    
+    <!-- 1. Install Tailwind CSS in your project for styling to work -->
+    <!-- Follow the guide: https://tailwindcss.com/docs/installation -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- 2. Firebase Configuration -->
+    <!-- IMPORTANT: Replace with your project's configuration -->
+    <script>
+        window.__firebase_config = JSON.stringify({
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+            projectId: "YOUR_FIREBASE_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        });
+
+        // This ID is used to separate data in Firestore.
+        // You can change it to a unique name for your hotel.
+        window.__app_id = 'my-hotel-app-v1';
+        
+        // This is for advanced authentication, you can leave it null for anonymous sign-in
+        window.__initial_auth_token = null; 
+
+    </script>
+
+    <!-- 3. Load Firebase JS SDK -->
+    <!-- These scripts make the Firebase functions available to the React app -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+        
+        // The React app will look for this 'window.firebaseModules' object
+        window.firebaseModules = {
+            initializeApp,
+            getAuth,
+            signInAnonymously,
+            onAuthStateChanged,
+            signInWithCustomToken,
+            getFirestore,
+            doc,
+            setDoc,
+            onSnapshot,
+            collection
+        };
+    </script>
+    
+    <!-- 4. This is your main React application script -->
+    <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
